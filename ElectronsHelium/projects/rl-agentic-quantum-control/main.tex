@@ -1,0 +1,140 @@
+% ============================================================================
+% Reinforcement learning and agentic optimization for quantum gates and
+% quantum sensing with electrons on helium
+% Target: Phys. Rev. Applied / Quantum / PRX Quantum (adjust class options below)
+% ============================================================================
+\documentclass[aps,prapplied,reprint,superscriptaddress,longbibliography]{revtex4-2}
+% \documentclass[aps,pra,reprint,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Reinforcement Learning and Agentic Optimization for Quantum Gates and Quantum Sensing with
+Electrons on Helium}
+% Working title.
+
+\author{Author list TBD}
+\affiliation{Affiliation TBD}
+
+\date{\today}
+
+\begin{abstract}
+Reinforcement learning (RL) already optimizes the double-well trap potential for entanglement-based
+quantum sensing on the electrons-on-helium (eHe) platform, using a proximal-policy-optimization
+(PPO) agent maximizing a Fisher-information-based reward~\cite{perruzza2026}. High-fidelity
+two-qubit gates on the same platform, by contrast, are currently designed by grid search over a
+low-dimensional pulse-shape family~\cite{leinonen2025}. We propose extending RL-based optimization
+to gate design, and further explore a broader ``agentic'' workflow in which higher-level control
+(hyperparameter choice, reward shaping, campaign design across the gate/sensing/readout stack) is
+itself automated or human--AI collaborative. This is a proposal manuscript: we outline the RL
+environment for gate optimization, a joint gate-and-sensing reward that could unify the two existing
+use cases, and the open questions that need to be resolved before results can be reported.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Model-free reinforcement learning has shown broad success in quantum control tasks — from generic
+state-preparation and gate-design problems~\cite{bukov2018reinforcement,niu2019universal} to
+Bayesian-optimal experimental design in quantum metrology~\cite{belliardo2024model} — and is
+reviewed extensively for quantum technology applications in general~\cite{bukov2026reinforcement}.
+On the electrons-on-helium platform specifically, an Actor--Critic PPO
+agent~\cite{schulman2017proximal} already optimizes the trap electrode voltages to maximize a
+composite reward built from singlet/triplet state fidelities and classical Fisher information,
+for the purpose of entanglement-enhanced sensing~\cite{perruzza2026}. The two-qubit gate work on the
+same platform~\cite{leinonen2025}, in contrast, optimizes a much smaller parameter set (ramp and
+hold times of an erf-shaped voltage pulse) by grid search — a choice that was reasonable given the
+low dimensionality of that particular pulse family, but leaves open whether a richer,
+RL-discoverable pulse shape could improve gate fidelity, robustness, or speed beyond the current
+best results ($F=0.999$ for $\sqrt{\text{iSWAP}}$, $F=0.996$ for CZ).
+
+This project has two parts. First, the more concrete one: port the existing RL/PPO infrastructure
+from the sensing use case to gate design, replacing the current grid search over
+$(t_{\rm ramp}, t_{\rm hold})$ with a policy that controls the full time-dependent voltage
+trajectory $V(\lambda(t))$, and see whether it finds higher-fidelity or more robust gates than the
+erf-ramp family currently assumed. Second, the more exploratory one: since the same underlying
+device (trap electrodes, Hartree/CI machinery, resonator readout) supports both gates and sensing,
+we ask whether a single agentic framework — potentially a hierarchical or multi-objective one — can
+jointly optimize across both tasks, or even autonomously propose which numerical experiments to run
+next (an ``agentic AI'' layer on top of classical RL, in the sense of an agent that plans and
+sequences its own investigation rather than only optimizing a fixed reward on a fixed task).
+
+\section{Model}
+
+\subsection{RL environment for gate design}
+
+Reusing the two-qubit gate model of Ref.~\cite{leinonen2025}: state $s_t$ = (present voltage vector
+$V(t)$ or its parametrization $\lambda(t)$, elapsed pulse time, present gate-state overlaps
+$U_{ij}(t)$); action $a_t$ = increment to the voltage trajectory (either a direct increment to
+$V(t+\delta t)$, or coefficients of a smooth basis such as a truncated Fourier/spline expansion of
+$\lambda(t)$, to keep the action space low-dimensional and the resulting pulses physically smooth);
+reward = a combination of final gate fidelity $F$ (Sec.~IV of Ref.~\cite{leinonen2025}) and a speed
+penalty, evaluated via the same Crank--Nicolson propagation already used for the grid-search
+approach. Candidate architectures: PPO (consistent with the existing sensing-RL
+infrastructure~\cite{schulman2017proximal}), or a demonstration-seeded approach that starts from the
+known erf-ramp solution and lets RL refine it (in the spirit of reinforcement-learning-from-demonstration
+approaches to quantum control) rather than learning a pulse shape from scratch.
+
+\subsection{A joint gate-and-sensing reward (exploratory)}
+
+Because both tasks share the same trap/CI backbone, a natural extension is a multi-objective reward
+\begin{equation}
+R(a) = w_{\rm gate}\, R_{\rm gate}(a) + w_{\rm sense}\, R_{\rm sense}(a),
+\end{equation}
+where $R_{\rm sense}$ is the existing Fisher-information-based reward of
+Ref.~\cite{perruzza2026} and $R_{\rm gate}$ is the fidelity/speed reward above, with weights
+$w_{\rm gate}, w_{\rm sense}$ set by the application (a device optimized purely for sensing need not
+also be a good gate, and vice versa — the interesting question is how much is given up by demanding
+both). This would let a single agent characterize the trade-off surface between ``good qubit'' and
+``good sensor'' trap configurations, rather than optimizing each in isolation as is currently done.
+
+\subsection{Agentic layer (exploratory, least defined)}
+
+Beyond parameter optimization within a fixed RL environment, an ``agentic'' framing would have a
+higher-level controller: choose which reward to optimize, when to switch tasks, when a numerical
+result warrants a follow-up simulation, or when to flag a result as inconsistent with the
+established claims-discipline conventions of this project (see
+\texttt{skills/literature-and-notation}). This is the least concrete part of the proposal and
+needs scoping before any implementation is attempted — see open questions below.
+
+\subsection{Open questions}
+
+\begin{itemize}
+  \item Does an RL-discovered pulse shape actually beat the erf-ramp family of
+  Ref.~\cite{leinonen2025}, or does the existing grid search already saturate what's achievable
+  for this Hamiltonian? (Plausible null result — state it as such if so.)
+  \item What is the right action-space parametrization to keep training sample-efficient while still
+  letting the agent discover genuinely new pulse shapes (not just re-derive the erf ramp)?
+  \item Is the joint gate-and-sensing reward actually useful, or does it just produce a mediocre
+  compromise with no practical use case? Needs a concrete motivating scenario (e.g.\ a device that
+  must do both without reconfiguration) before investing in it.
+  \item What, concretely, would distinguish an ``agentic'' layer from a slightly more elaborate
+  hyperparameter search? This needs a sharper definition before it's a research claim rather than a
+  buzzword — see Ref.~\cite{bukov2026reinforcement} for how the broader RL-for-quantum-technology
+  literature currently scopes this kind of question.
+\end{itemize}
+
+\section{Results}
+
+Not yet available.
+
+\section{Discussion and outlook}
+
+If the gate-RL part succeeds, the natural next step is a systematic comparison against the grid
+search of Ref.~\cite{leinonen2025} across the same fidelity/robustness metrics (swap error, leakage
+error, sensitivity to ramp/hold-time deviations), reusing the numerical toolkit in
+\texttt{ci-dvr-hartree-numerics}. The joint reward and agentic-layer parts should be scoped down to
+a single, concrete, falsifiable claim before further development.
+
+\begin{acknowledgments}
+Placeholder.
+\end{acknowledgments}
+
+\bibliography{references}
+
+\end{document}

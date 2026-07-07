@@ -1,0 +1,155 @@
+% ============================================================================
+% Two electrons on helium as a differential sensor for Majorana zero modes
+% Target: Phys. Rev. A / PRX Quantum (adjust class options below once decided)
+% ============================================================================
+\documentclass[aps,pra,reprint,superscriptaddress,longbibliography]{revtex4-2}
+% \documentclass[aps,prxquantum,reprint,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Two Electrons on Helium as a Differential Sensor for Majorana Zero Modes}
+% Working title — revisit once the specific signal channel (Sec.~III) is chosen.
+
+\author{Author list TBD}
+\affiliation{Affiliation TBD}
+
+\date{\today}
+
+\begin{abstract}
+We propose using a pair of Coulomb-entangled electrons on superfluid helium, prepared in the
+motional/spin singlet configuration used as a differential field sensor in
+Ref.~\cite{perruzza2026}, to probe local signatures associated with Majorana zero modes (MZMs) in
+a proximal topological superconductor. Because the singlet is insensitive to common-mode
+perturbations and maximally sensitive to a \emph{difference} between the two trap sites, positioning
+the two electrons asymmetrically with respect to a topological wire converts a local,
+sub-shot-noise MZM signature into a differential signal read out through the same
+quantum-Fisher-information framework already developed for particle-physics sensing on this
+platform. This is a proposal: we outline the signal channels under consideration, the required
+theoretical extension of the existing singlet--triplet sensor model, and the open questions that
+must be resolved before a concrete protocol can be simulated.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Two electrons on superfluid helium, entangled through their unscreened Coulomb interaction, have
+been shown theoretically to support a differential-sensing scheme: prepared in the motional/spin
+singlet, the pair is blind to common-mode fields but maximally responsive to a \emph{gradient}
+between the two trap sites, quantified through the quantum and classical Fisher information and
+benchmarked against an independent-spin Ramsey scheme~\cite{perruzza2026}. That proposal targeted
+generic magnetic-field gradients (e.g.\ from light dark matter or axion-like fields). The
+underlying entangled states, and the machinery for computing them (Hartree/CI on a sinc-DVR basis,
+configurations I/II/III), were established for the two-electron helium platform in
+Ref.~\cite{beysengulov2024}, with time-dependent control of the same states realized as high-fidelity
+two-qubit gates in Ref.~\cite{leinonen2025}. Reference~\cite{perruzza2026} also grounds the sensing
+readout of a real device in Refs.~\cite{koolstra2025impedance,castoria2025}, which demonstrate the
+resonator-based charge/orbital readout hardware this platform actually has today.
+
+Majorana zero modes (MZMs), predicted to occur at the ends of one-dimensional topological
+superconductors~\cite{kitaev2001unpaired} and in proximitized semiconductor
+nanowires~\cite{lutchyn2010majorana,oreg2010helical}, have been pursued experimentally for over a
+decade, with zero-bias conductance signatures reported in hybrid
+superconductor--semiconductor nanowires~\cite{mourik2012signatures} and reviewed extensively
+since~\cite{beenakker2013search,lutchyn2018majorana}. A central experimental difficulty is that MZM
+signatures are subtle, easily mimicked by trivial (non-topological) Andreev bound states, and
+sensitive to quasiparticle poisoning — a stray quasiparticle tunneling onto the topological segment
+flips its fermion parity and can toggle any locally coupled signal. This is precisely the kind of
+weak, potentially transient, spatially localized perturbation that a differential entangled-pair
+sensor is suited to pick up while rejecting the (much larger) common-mode electromagnetic
+environment of a cryostat.
+
+This project asks whether the existing eHe differential-sensor machinery can be repurposed, with
+the ``target signal'' reinterpreted from a magnetic-field gradient to whatever local field or charge
+signature a nearby MZM produces. We do not yet have a settled answer to \emph{which} physical
+channel (Sec.~\ref{sec:model}) is both (i) strong enough to be detectable at achievable electron--source
+distances and (ii) compatible with the existing singlet--triplet coupling operator. The goal of this
+manuscript, at this stage, is to lay out the extension of the model and the open questions rather
+than to report a result.
+
+\section{Model}
+\label{sec:model}
+
+\subsection{Reusing the existing sensor Hamiltonian}
+
+The starting point is the effective two-level (ground/excited, singlet-like/triplet-like) model of
+Ref.~\cite{perruzza2026}:
+\begin{equation}
+H_{\rm eff} = E_g|g\rangle\langle g| + E_e|e\rangle\langle e| +
+\lambda(t)\left(|g\rangle\langle e| + |e\rangle\langle g|\right),
+\end{equation}
+where in the original proposal $\lambda = (g\mu_B \delta B/2) M_{ge}$ couples to a magnetic-field
+gradient $\delta B = B_L - B_R$ via the matrix element $M_{ge} = \langle e|S^z_L - S^z_R|g\rangle$.
+For a Majorana-mode signal, $\lambda(t)$ should instead encode whatever locally asymmetric quantity
+the MZM produces at the two trap sites — to be determined (see below). The quantum/classical Fisher
+information and Cram\'er--Rao bound machinery of Ref.~\cite{perruzza2026} carries over unchanged
+once $\lambda(t)$ is specified.
+
+\subsection{Candidate signal channels (to be evaluated)}
+
+\begin{itemize}
+  \item \textbf{Parity-switching noise.} A quasiparticle-poisoning event on the topological segment
+  flips the ground-state fermion parity, which (depending on the specific hybrid architecture) can
+  modulate a local charge or field asymmetric between the two trap sites. This would appear as a
+  telegraph-noise-like signal rather than a coherent Rabi oscillation, requiring a different Fisher
+  information treatment (parameter = switching rate, not a static/slowly-varying field).
+  \item \textbf{Stray field from Majorana-induced edge/Andreev currents.} If the topological wire
+  supports a weak stray magnetic field at its end (from the associated Andreev bound state charge
+  distribution or edge current), this maps most directly onto the existing $\delta B$ channel and
+  requires the smallest change to the Ref.~\cite{perruzza2026} formalism.
+  \item \textbf{Direct charge-coupling channel.} Reusing the electric susceptibility / dispersive
+  framework of Ref.~\cite{castoria2025} (an electron's motional state already couples to local
+  charge/potential fluctuations through the resonator), a nearby MZM's contribution to the local
+  electrostatic potential could couple directly to $(n_L - n_R)$ rather than to spin — a fundamentally
+  different (charge, not spin-gradient) sensing channel that would need its own generator and its own
+  QFI expression.
+\end{itemize}
+
+Each channel implies a different coupling operator, a different noise model, and a different
+distance/coupling-strength budget; identifying the most promising one (or ruling all three out at
+currently achievable electron--nanowire separations) is the first concrete task for this project.
+
+\subsection{Open theoretical questions}
+
+\begin{itemize}
+  \item What is the realistic magnitude of the candidate signal at achievable electron--MZM
+  separations, and how does it compare to the $\delta B$ magnitudes assumed in
+  Ref.~\cite{perruzza2026}?
+  \item Is the relevant noise process (e.g.\ quasiparticle poisoning) better modeled as a static
+  parameter to estimate (Fisher information / Cram\'er--Rao, as in the existing framework) or as a
+  stochastic process requiring a different estimation-theoretic treatment (e.g.\ change-point
+  detection, quantum non-demolition parity readout)?
+  \item Does the factor-of-2 QFI advantage carry over quantitatively, or does the new coupling
+  operator's matrix element $M_{ge}$ (or its charge-channel analogue) reduce the achievable gain?
+  \item What does the required electron--nanowire integration look like physically (shared substrate?
+  proximity-coupled chip?), and is it compatible with the trap/reservoir geometry of
+  Ref.~\cite{castoria2025}?
+\end{itemize}
+
+\section{Results}
+
+Not yet available — this section will report the candidate-channel comparison and, for the
+strongest candidate, a QFI/CRB estimate analogous to Sec.~IV of Ref.~\cite{perruzza2026}.
+
+\section{Discussion and outlook}
+
+If a viable signal channel is identified, next steps are: (i) extend the CI/Hartree machinery of
+Ref.~\cite{beysengulov2024} to include the new coupling operator, reusing the numerical toolkit
+described in the project's \texttt{ci-dvr-hartree-numerics} skill; (ii) simulate the achievable QFI
+as a function of electron--MZM distance and compare against the independent-spin (Ramsey) benchmark;
+(iii) assess whether RL-based trap optimization (see the companion \texttt{rl-agentic-quantum-control}
+project) can improve the achievable coupling by reshaping the trap potential, as it already does for
+the field-gradient sensor.
+
+\begin{acknowledgments}
+Placeholder.
+\end{acknowledgments}
+
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+
+# Jupyter-book build output
+_build/
+
+# Build / C++ / Fortran
+build/
+*.o
+*.so
+*.mod
+*.a
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Data / large outputs (uncomment to keep big binaries out of git; use Git LFS or releases instead)
+# papers/*.pdf
+# *.h5
+# *.npz

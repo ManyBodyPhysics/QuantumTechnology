@@ -1,0 +1,63 @@
+% ============================================================================
+% Generic manuscript scaffold — copy this directory to start a new project.
+% Class options below target Phys. Rev. A by default; swap the commented
+% alternatives for PRApplied / PRX Quantum / PRL / a generic preprint.
+% ============================================================================
+\documentclass[aps,pra,reprint,superscriptaddress,longbibliography]{revtex4-2}
+% \documentclass[aps,prapplied,reprint,superscriptaddress,longbibliography]{revtex4-2}   % Phys. Rev. Applied
+% \documentclass[aps,prxquantum,reprint,superscriptaddress,longbibliography]{revtex4-2}  % PRX Quantum
+% \documentclass[aps,prl,twocolumn,superscriptaddress]{revtex4-2}                        % Phys. Rev. Lett.
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+
+% Shared project conventions (keep consistent with
+% skills/literature-and-notation/references/notation.md):
+%   natural units hbar^2/2m_e = 1, hbar = 1
+\newcommand{\ehe}{electrons on helium}
+
+\begin{document}
+
+\title{TITLE}
+
+\author{First Author}
+\author{Second Author}
+\affiliation{Affiliation}
+
+\date{\today}
+
+\begin{abstract}
+One-paragraph abstract: state the problem, the idea, and (once available) the headline result.
+Keep it hedged appropriately if the manuscript is still a proposal rather than a set of results.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+Motivate the problem. Ground it in what has already been demonstrated or established (cite prior
+work by BibTeX key), then state the gap this project addresses.
+
+\section{Model}
+Define the Hamiltonian / framework. State units and conventions explicitly (point to
+\texttt{notation.md} rather than re-deriving the project's shared conventions from scratch).
+
+\section{Results}
+Placeholder — fill in once computed. Distinguish demonstrated/derived results from
+projected/simulated ones.
+
+\section{Discussion and outlook}
+Placeholder.
+
+\begin{acknowledgments}
+Placeholder.
+\end{acknowledgments}
+
+\appendix
+\section{Appendix title}
+Placeholder for supporting derivations.
+
+\bibliography{references}
+
+\end{document}
