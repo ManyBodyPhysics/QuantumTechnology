@@ -51,13 +51,14 @@ Namespace new modules/notebooks by project (e.g. `src/eoh/majorana.py`,
 | `majorana-two-electron-sensor/` | Two electrons on helium as a differential sensor for Majorana zero modes | `quantum-sensing`, `coulomb-entanglement` | idea / outline |
 | `rl-agentic-quantum-control/` | Reinforcement learning and agentic optimization for quantum gates and quantum sensing | `two-qubit-gates`, `quantum-sensing`, `ci-dvr-hartree-numerics` | idea / outline |
 | `optomechanics-analogues/` | Optomechanical analogues on helium: sideband cooling, motional squeezing, motional entanglement | `resonator-coupling`, `charge-readout`, `coulomb-entanglement` | idea / outline |
+| `time-dependent-field-sensing/` | Beyond the static gradient: electrons on helium as a time-dependent-field sensor for particle physics | `quantum-sensing`, `coulomb-entanglement`, `ci-dvr-hartree-numerics` | idea / outline |
 
 None of these have results yet — everything in `main.tex` beyond the introduction/motivation is a
 placeholder or an explicitly labeled proposal. Keep the same **claims discipline** used across this
 repo (see `skills/literature-and-notation/references/notation.md`): don't let a proposal read as a
 result.
 
-## Adding a fourth project
+## Adding another project
 
 1. `cp -r projects/_template projects/<new-slug>`
 2. Fill in `README.md`, the title/abstract/authors in `main.tex`, and seed `references.bib` with the

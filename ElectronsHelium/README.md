@@ -40,7 +40,9 @@ electrons-on-helium-quantum/
 │   ├── _template/                       ← copy this to start a new project
 │   ├── majorana-two-electron-sensor/    ← eHe singlet sensor repurposed for Majorana zero modes
 │   ├── rl-agentic-quantum-control/      ← RL/agentic optimization for gates and sensing
-│   └── optomechanics-analogues/         ← sideband cooling / squeezing / entanglement analogues
+│   ├── optomechanics-analogues/         ← sideband cooling / squeezing / entanglement analogues
+│   └── time-dependent-field-sensing/    ← static-gradient sensor extended to oscillating/transient
+│                                           particle-physics fields (axion/ALP, dark photon, EDM, ...)
 ├── notebooks/                    ← Jupyter notebooks / Jupyter-book chapters (scaffold)
 └── src/                          ← Python-first library; C++/Fortran kernels (scaffold)
 ```
@@ -102,6 +104,7 @@ with the group's existing APS-journal manuscripts. See `projects/README.md` for 
 | `majorana-two-electron-sensor/` | Two electrons on helium as a differential sensor for Majorana zero modes | `quantum-sensing`, `coulomb-entanglement` |
 | `rl-agentic-quantum-control/` | Reinforcement learning and agentic optimization for quantum gates and quantum sensing | `two-qubit-gates`, `quantum-sensing`, `ci-dvr-hartree-numerics` |
 | `optomechanics-analogues/` | Optomechanical analogues on helium: sideband cooling, motional squeezing, motional entanglement | `resonator-coupling`, `charge-readout`, `coulomb-entanglement` |
+| `time-dependent-field-sensing/` | Beyond the static gradient: electrons on helium as a time-dependent-field sensor for particle physics | `quantum-sensing`, `coulomb-entanglement`, `ci-dvr-hartree-numerics` |
 
 These are proposals, not results — each `main.tex` is explicit about what's established vs. open.
 Code for these projects belongs in the existing shared `src/` and `notebooks/` trees (Python first,
@@ -161,13 +164,14 @@ prefer to keep large binaries out of git, move them to a release or Git LFS and 
 - [x] Add skills grounding the resonator readout hardware: `resonator-coupling` (impedance/coupling
       design) and `charge-readout` (demonstrated dispersive sensing/control above 1 K).
 - [x] Scaffold `projects/` with LaTeX (REVTeX 4-2) templates, seeded references, and initial
-      motivating text for three new directions: Majorana-mode sensing, RL/agentic control,
-      optomechanics analogues.
+      motivating text for four new directions: Majorana-mode sensing, RL/agentic control,
+      optomechanics analogues, time-dependent-field particle-physics sensing.
 - [ ] Develop each `projects/` idea past its first open question (see each project's `notes.md`);
       promote to a `skills/<slug>/SKILL.md` once there's real content to distill.
-- [ ] Add skills for new directions: time-dependent-field sensing, sensor-network design, spin
-      readout / spin-to-charge, error/decoherence modeling (Lindblad — also needed by
-      `optomechanics-analogues`), solid-neon electrons.
+- [ ] Add skills for new directions: time-dependent-field sensing (see
+      `projects/time-dependent-field-sensing/` for the literature-search starting point),
+      sensor-network design, spin readout / spin-to-charge, error/decoherence modeling (Lindblad —
+      also needed by `optomechanics-analogues`), solid-neon electrons.
 - [ ] Optional: run the skill-creator eval loop to tune skill triggering once usage patterns emerge.
 
 ## License & attribution

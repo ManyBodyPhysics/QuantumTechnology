@@ -1,0 +1,12 @@
+# Fdb version 3
+["pdflatex"] 1783493223 "main.tex" "main.pdf" "main" 1783493223
+  "/etc/texmf/web2c/texmf.cnf" 1781040101 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1781040203 1405645 cc124f101c66c92b415a2aacb1341bc5 ""
+  "main.aux" 1783493224 32 3985256e7290058c681f74d7a3565a19 ""
+  "main.tex" 1783429414 9295 8acdf4e11a23d507fc96259ca6094d97 ""
+  "revtex4-2.cls" 0 -1 0 ""
+  (generated)
+  "main.log"
+  "main.pdf"

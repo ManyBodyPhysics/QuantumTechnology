@@ -1,0 +1,235 @@
+% ============================================================================
+% Beyond the static gradient: electrons on helium as a time-dependent-field
+% sensor for particle physics
+% Target: PRX Quantum / Phys. Rev. A (adjust class options below once decided)
+% ============================================================================
+\documentclass[aps,prxquantum,reprint,superscriptaddress,longbibliography]{revtex4-2}
+% \documentclass[aps,pra,reprint,superscriptaddress,longbibliography]{revtex4-2}          % Phys. Rev. A
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{hyperref}
+
+% Shared project conventions (keep consistent with
+% skills/literature-and-notation/references/notation.md):
+%   natural units hbar^2/2m_e = 1, hbar = 1
+\newcommand{\ehe}{electrons on helium}
+
+\begin{document}
+
+\title{Beyond the Static Gradient: Electrons on Helium as a Time-Dependent-Field Sensor for
+Particle Physics}
+% Working title — revisit once the specific target channel (Sec.~III) is chosen.
+
+\author{Author list TBD}
+\affiliation{Affiliation TBD}
+
+\date{\today}
+
+\begin{abstract}
+Reference~\cite{perruzza2026} proposed a pair of Coulomb-entangled electrons on superfluid helium,
+prepared in the motional/spin singlet, as a differential sensor for particle-physics signals,
+demonstrating a factor-of-two quantum-Fisher-information gain over an independent-spin Ramsey
+benchmark for a \emph{static} magnetic-field gradient. That work explicitly deferred time-dependent
+fields to future study. This project takes up that extension: we generalize the singlet--triplet
+sensor Hamiltonian to an oscillating or transient coupling $\lambda(t)$ and ask which particle-physics
+targets are best matched to it. A literature survey of running and proposed experiments —
+oscillating axion/axion-like-particle (ALP) dark-matter backgrounds (CASPEr, ABRACADABRA, DM~Radio),
+dark-photon dark matter, network-based domain-wall/transient searches (GNOME), and precision
+electric-dipole-moment (EDM) measurements — is used to identify which regime (resonant narrowband,
+broadband stochastic, or impulsive) the eHe platform's characteristic frequency scale and
+common-mode-rejection architecture could plausibly compete in. This is a proposal: we outline the
+extended formalism, the candidate target channels with their existing experimental sensitivity
+reach, and the open questions that must be resolved before a concrete protocol can be simulated.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+
+Two Coulomb-entangled electrons on superfluid helium, prepared in the motional/spin singlet, were
+shown in Ref.~\cite{perruzza2026} to act as a differential quantum sensor: blind to common-mode
+fields and maximally responsive to a \emph{difference} between the two trap sites, quantified through
+the quantum and classical Fisher information and benchmarked against an independent-spin Ramsey
+scheme. The entangled states and the numerical machinery used to obtain them (Hartree/CI on a
+sine-DVR basis, configurations I/II/III) were established in Ref.~\cite{beysengulov2024}, with
+time-dependent \emph{control} of the same states realized as high-fidelity two-qubit gates in
+Ref.~\cite{leinonen2025}; Ref.~\cite{perruzza2026} also grounds the sensing readout in the real
+resonator/charge-readout hardware demonstrated in Refs.~\cite{koolstra2025impedance,castoria2025}.
+
+Reference~\cite{perruzza2026} is explicit about its scope: ``we limit ourselves in this work to the
+detection of a static magnetic-field gradient across the two wells,'' and states that ``we will
+address time-dependent fields in future studies.'' The same paper's discussion section already
+gestures at what those time-dependent targets might be — ``the extremely weak, slowly oscillating
+fields associated with ultralight dark-matter candidates such as axions or axion-like
+particles''~\cite{graham2013new,abel2017search,budker2014proposal}, entangled sensor networks for
+dark-matter and axion signals~\cite{brady2022entangled,derevianko2018detecting}, ultrafast transients
+from milli-charged particles or hidden-sector bosons, and rare-event searches including electric
+dipole moments — without developing any of them quantitatively. The paper's own sensor-network
+outlook (Sec.~2.9) further distinguishes two coupling channels that a single eHe platform could in
+principle host: the singlet, optimal for \emph{gradient} signals (generator $G_-$), and Bell/GHZ-type
+states, optimal for \emph{common-mode} oscillating signals (generator $G_+$) such as ``a weak
+oscillating field from an axion-like background.''
+
+This project asks two questions left open by Ref.~\cite{perruzza2026}: (i) how does the static-field
+QFI/CRB formalism of Sec.~IV of that paper generalize to a periodic or transient $\lambda(t)$, and
+(ii) among the particle-physics targets it names only qualitatively, which one is quantitatively the
+best match for the eHe platform's trap geometry, coherence budget, and $G_\pm$ readout modes, given
+where existing dedicated experiments already sit in sensitivity and frequency/mass coverage. We do
+not yet have a settled answer to either question; the goal of this manuscript, at this stage, is to
+lay out the extended model and a literature-grounded comparison rather than to report a result.
+
+\section{Model}
+\label{sec:model}
+
+\subsection{From a static to a time-dependent coupling}
+
+The starting point is the effective two-level (singlet-like/triplet-like) model of
+Ref.~\cite{perruzza2026},
+\begin{equation}
+H_{\rm eff}(t) = E_g|g\rangle\langle g| + E_e|e\rangle\langle e| +
+\lambda(t)\left(|g\rangle\langle e| + |e\rangle\langle g|\right),
+\end{equation}
+where the original proposal fixes $\lambda = (g\mu_B \delta B/2) M_{ge}$ for a \emph{static} field
+gradient $\delta B = B_L - B_R$, with matrix element $M_{ge} = \langle e|S^z_L - S^z_R|g\rangle$. The
+natural generalization replaces the static $\delta B$ with a time-dependent source term. Two limiting
+forms recur throughout the axion/dark-photon haloscope literature and map directly onto candidate
+targets identified below:
+\begin{itemize}
+  \item \textbf{Narrowband/resonant:} $\delta B(t) = \delta B_0\cos(\omega_a t + \phi)$, appropriate
+  for a coherent ultralight bosonic dark-matter field of mass $m_a = \hbar\omega_a$ coherent over the
+  local dark-matter coherence time $\tau_c \sim 10^6/\omega_a$ — the regime targeted by
+  CASPEr~\cite{budker2014proposal}, ABRACADABRA~\cite{ouellet2019design,salemi2021search}, and
+  DM~Radio~\cite{silvafeaver2017design}.
+  \item \textbf{Impulsive/transient:} $\delta B(t) = \delta B_0\, f(t/\tau)$ for a short pulse of
+  duration $\tau$ crossing the trap, appropriate for a milli-charged particle, hidden-sector boson, or
+  domain-wall crossing — the regime targeted by network searches such as
+  GNOME~\cite{afach2021search,afach2023gnome}.
+\end{itemize}
+In both cases the quantum and classical Fisher information of Sec.~IV of Ref.~\cite{perruzza2026}
+must be re-derived for a coupling with explicit time dependence, replacing the single scalar
+parameter $\delta B$ with either an amplitude-and-phase pair $(\delta B_0,\phi)$ at fixed known
+$\omega_a$ (matched-filtering regime, as in resonant haloscopes) or a fully unknown waveform (change-
+point/transient-detection regime, as in network searches). Neither extension is a straightforward
+relabeling of the existing static-parameter QFI/CRB result; both require revisiting which quantity is
+actually being estimated.
+
+\subsection{Common-mode vs. gradient coupling}
+
+Whether a given target couples through the gradient generator $G_-$ (as in the original static
+proposal) or the common-mode generator $G_+$ depends on the physical origin of the signal. An
+oscillating axion-induced pseudo-magnetic field sourced by the galactic dark-matter background is, to
+leading order, spatially uniform on trap length scales ($\sim\mu$m), favoring a $G_+$ (Bell/GHZ)
+readout as anticipated in Ref.~\cite{perruzza2026}'s outlook; a signal from a particle traversing (or
+passing near) one of the two wells, or a topological-defect/domain-wall crossing with a finite
+spatial extent, instead favors the $G_-$ (singlet, gradient) readout already developed for the static
+case. Dark-photon dark matter can source either an effectively common-mode oscillating field (through
+kinetic mixing with the photon, felt uniformly by both wells) or, if the dark-photon Compton
+wavelength becomes comparable to the trap baseline, a genuine gradient signal — a distinction not
+present in the original static proposal and requiring its own treatment.
+
+\section{Candidate target channels (to be evaluated)}
+\label{sec:channels}
+
+\begin{itemize}
+  \item \textbf{Oscillating axion/ALP dark-matter background.} The best-motivated extension of
+  Ref.~\cite{perruzza2026}'s own framing: axion/ALP dark matter couples to electron (and nucleon)
+  spins as an effective, slowly oscillating Zeeman-like term~\cite{graham2013new,abel2017search}.
+  Dedicated experiments (CASPEr-Electric/Gradient~\cite{budker2014proposal}, the inductively coupled
+  ABRACADABRA-10\,cm~\cite{ouellet2019design,salemi2021search}, and the lumped-element DM~Radio
+  pathfinder~\cite{silvafeaver2017design}) already cover a broad low-mass window
+  ($\sim 10^{-14}$--$10^{-6}\,{\rm eV}$); recent work also shows that the same NMR/comagnetometer-
+  style apparatus is simultaneously sensitive to the axion-photon coupling and to kinetically mixed
+  dark photons~\cite{beadle2025nmr}. The open question is whether the eHe platform's trap-baseline
+  and coherence-time scale places it in a genuinely uncovered mass window, or whether it would only
+  reproduce existing haloscope sensitivity with a different (entanglement-enhanced) prefactor.
+  \item \textbf{Dark-photon dark matter.} A kinetically mixed dark photon sources an oscillating
+  effective electric or magnetic field inside a shielded volume, detectable with the same
+  spin-precession or charge-coupled apparatus used for axions, with a
+  distinguishable frequency/coupling signature~\cite{beadle2025nmr}. Since the eHe platform already
+  has both a spin ($G_-$/$G_+$ Zeeman) and a charge ($n_L - n_R$, cf. the
+  \texttt{majorana-two-electron-sensor} project's charge channel) coupling route, this may be the
+  channel best suited to exploiting the platform's dual readout.
+  \item \textbf{Network transient/domain-wall searches.} GNOME-style
+  searches~\cite{afach2021search,afach2023gnome} correlate transient signals across a global network
+  of comagnetometers to detect topological-defect dark matter crossing the Earth. An array of
+  entangled eHe sensors (cf. Ref.~\cite{perruzza2026} Sec.~2.9 and the
+  \texttt{rl-agentic-quantum-control} project's optimization machinery) could in principle contribute
+  a single, high-coherence node to such a network, or motivate an analogous laboratory-scale
+  multi-trap correlation search; the impulsive-signal QFI/CRB treatment above is the theoretical
+  prerequisite.
+  \item \textbf{Electric dipole moment (EDM) precision channel.} A static electric field applied
+  across the trap, combined with a comagnetometer-style oscillating readout, is the standard EDM
+  protocol~\cite{aoki2021quantum}; entangled-sensor EDM proposals in trapped-atom systems report
+  projected sensitivity below $10^{-30}\,e\cdot{\rm cm}$. This channel is intermediate between the
+  original static-gradient proposal (a static source field) and the oscillating targets above (an
+  oscillating readout is still required to reject systematics), and would need its own assessment of
+  whether the eHe platform's achievable $E$-field and coherence time are competitive.
+  \item \textbf{Broader spin-dependent short-range forces.} Reviewed in
+  Ref.~\cite{jiang2024searches}, ``fifth-force'' searches for exotic spin-dependent interactions are a
+  natural extension of the gradient ($G_-$) channel already built for Ref.~\cite{perruzza2026}, since
+  they are inherently short-range, differential signals rather than galactic-background common-mode
+  ones — potentially the lowest-effort extension of the existing static formalism, trading a
+  particle-physics dark-matter motivation for a table-top BSM-force one.
+\end{itemize}
+
+Each channel implies a different generator ($G_-$ vs.\ $G_+$), a different estimation-theoretic
+regime (resonant narrowband vs.\ transient), and a different existing-experiment baseline to beat or
+complement; narrowing this list — using, at minimum, an order-of-magnitude comparison between the
+eHe platform's coherence-time-limited sensitivity and the published exclusion curves of
+Refs.~\cite{budker2014proposal,ouellet2019design,salemi2021search,silvafeaver2017design,afach2021search,afach2023gnome,beadle2025nmr}
+— is the first concrete task for this project. A broader Snowmass-style survey of quantum sensors for
+high-energy physics~\cite{cecil2022snowmass} is used as a cross-check that no obviously more
+appropriate existing platform is being overlooked.
+
+\section{Open theoretical questions}
+\label{sec:open}
+
+\begin{itemize}
+  \item How does the quantum Cram\'er--Rao bound of Ref.~\cite{perruzza2026} generalize when the
+  parameter of interest is an oscillation amplitude at a known (or partially known) frequency, versus
+  an unknown transient waveform? Is a Bayesian/matched-filter treatment, as used in the haloscope
+  literature, more natural here than the single-shot static-parameter QFI used previously?
+  \item Does the factor-of-two entanglement advantage found for the static gradient survive, strengthen,
+  or degrade once averaged over a stochastic (finite dark-matter-coherence-time) oscillating source,
+  as opposed to a fixed classical field?
+  \item What eHe trap coherence time and baseline (electron--electron separation) would be needed to
+  reach a mass/frequency window not already covered by CASPEr, ABRACADABRA, DM~Radio, or GNOME, and is
+  that window physically achievable given the device parameters used in
+  Ref.~\cite{beysengulov2024,perruzza2026}?
+  \item For the network/transient channel, does the existing single-pair sensor need to be embedded in
+  a multi-trap array (per Ref.~\cite{perruzza2026} Sec.~2.9) before a meaningful comparison to GNOME-
+  style searches is even possible, or is a single high-coherence node already a useful complementary
+  data point?
+\end{itemize}
+
+\section{Results}
+
+Not yet available — this section will report the channel-comparison order-of-magnitude estimates and,
+for the strongest candidate, a time-dependent QFI/CRB derivation analogous to Sec.~IV of
+Ref.~\cite{perruzza2026}.
+
+\section{Discussion and outlook}
+
+If a viable channel is identified, next steps are: (i) extend the CI/Hartree machinery of
+Ref.~\cite{beysengulov2024} and the numerical toolkit described in the project's
+\texttt{ci-dvr-hartree-numerics} skill to propagate the entangled state under an oscillating or
+transient $\lambda(t)$; (ii) derive the corresponding time-dependent quantum and classical Fisher
+information, including the effect of finite dark-matter coherence time where relevant; (iii) compare
+the achievable sensitivity, as a function of trap baseline and coherence time, against the published
+exclusion curves for the channel chosen; (iv) assess whether RL-based trap optimization (see the
+companion \texttt{rl-agentic-quantum-control} project) can be re-targeted from the static-gradient
+reward used in Ref.~\cite{perruzza2026} to an oscillating-signal reward. This project is
+complementary to, not a replacement for, the \texttt{majorana-two-electron-sensor} project, which
+explores a condensed-matter (rather than particle-physics) target for the same differential-sensor
+machinery.
+
+\begin{acknowledgments}
+Placeholder.
+\end{acknowledgments}
+
+\bibliography{references}
+
+\end{document}
