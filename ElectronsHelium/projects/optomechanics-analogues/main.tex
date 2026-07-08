@@ -30,13 +30,22 @@ resolved-sideband cooling of a mechanical mode to its ground
 state~\cite{teufel2011sideband}, single-mode motional squeezing via two-tone
 driving~\cite{pirkkalainen2015squeezing}, and dissipative (reservoir-engineered) entanglement between
 two mechanical oscillators via a shared cavity mode~\cite{ockeloenkorppi2018stabilized} — have not,
-to our knowledge, been translated to the electrons-on-helium (eHe) platform. With demonstrated
-high-impedance resonator coupling~\cite{koolstra2025impedance} and demonstrated dispersive
-charge/motional readout~\cite{castoria2025} now in hand for this platform, we outline how each of
-these three protocols maps onto the eHe Hamiltonian, what device parameters (cooperativity, sideband
-resolution) are required, and how the resulting entanglement generation compares with the existing,
-purely coherent, direct-Coulomb-coupling route already used on this platform~\cite{beysengulov2024}.
-This is a proposal manuscript: no protocol has yet been simulated against real device parameters.
+to our knowledge, been translated to the electrons-on-helium (eHe) platform. The prerequisite for all
+three, a single electron strongly coupled to a microwave photon ($g \gg \kappa,\Gamma_2$), has now
+been experimentally demonstrated on exactly this platform, with a measured coupling rate
+$g/2\pi = 118\pm3\,\mathrm{MHz}$, resonator linewidth $\kappa/2\pi = 23\,\mathrm{MHz}$, and electron
+decoherence rate as low as $\Gamma_2/2\pi = 61\,\mathrm{MHz}$, corresponding to a single-photon
+cooperativity $\mathcal{C} = 4g^2/(\kappa\Gamma_2) \approx 32$, in a dilution-refrigerator device
+operated down to 7~mK~\cite{koolstra2026strong}. Building on demonstrated high-impedance resonator
+coupling~\cite{koolstra2025impedance}, demonstrated dispersive charge/motional
+readout~\cite{castoria2025}, and now this strong-coupling milestone~\cite{koolstra2026strong}, we
+outline how each of the three optomechanics protocols maps onto the eHe Hamiltonian, evaluate the
+resolved-sideband and cooperativity budget against these newly measured device parameters, and
+discuss how the resulting entanglement generation compares with the existing, purely coherent,
+direct-Coulomb-coupling route already used on this platform~\cite{beysengulov2024}. This is a
+proposal manuscript: the strong-coupling and resolved-sideband prerequisites are now experimentally
+established, but no cooling, squeezing, or entangling protocol has itself yet been demonstrated or
+simulated in detail against these parameters.
 \end{abstract}
 
 \maketitle
@@ -57,13 +66,27 @@ Ref.~\cite{aspelmeyer2014cavity}.
 The electrons-on-helium platform has, formally, the same ingredients: an in-plane electron motional
 mode plays the role of the mechanical oscillator, and a superconducting microwave resonator plays
 the role of the optical cavity, with the electric-dipole coupling $g$ playing the role of the
-optomechanical coupling. This coupling has recently been engineered toward the strong-coupling
-regime through high-impedance resonator design~\cite{koolstra2025impedance}, and the corresponding
-dispersive readout of electron motion has been demonstrated experimentally, including operation
-above 1~K~\cite{castoria2025}. What has \emph{not} yet been done — on this platform, to our
-knowledge — is to drive the resonator--electron system at the red or blue mechanical sideband to
-access the cooling, squeezing, and entangling protocols listed above, as opposed to the purely
-dispersive (weak-coupling, static-shift) readout used so far.
+optomechanical coupling. This coupling was first engineered toward the strong-coupling regime through
+high-impedance resonator design~\cite{koolstra2025impedance}, and dispersive readout of electron
+motion was demonstrated experimentally, including operation above 1~K~\cite{castoria2025}. The
+strong-coupling regime itself has now been reached: Ref.~\cite{koolstra2026strong} reports a single
+electron on helium coupled to a high-kinetic-inductance TiN resonator with measured coupling rate
+$g/2\pi = 118\pm3\,\mathrm{MHz}$ (in agreement with the $g/2\pi\approx110\,\mathrm{MHz}$ design value
+of Ref.~\cite{koolstra2025impedance}), resonator linewidth $\kappa/2\pi = 23\,\mathrm{MHz}$, and
+electron decoherence rate $\Gamma_2/2\pi = 75\pm5\,\mathrm{MHz}$ (improving to
+$\Gamma_2/2\pi = 61\,\mathrm{MHz}$ with negative electrode voltage offsets), unambiguously confirmed
+via vacuum Rabi splitting in the resonator transmission spectrum. This is, to our knowledge, the
+first demonstration that this platform actually sits deep in the strong-coupling, resolved-sideband
+regime this project's protocols require — see Sec.~\ref{sec:cooling} for the explicit budget. What
+has \emph{not} yet been done — on this platform, to our knowledge — is to drive the
+resonator--electron system at the red or blue mechanical sideband to access the cooling, squeezing,
+and entangling protocols listed above, as opposed to the vacuum-Rabi-splitting spectroscopy and
+dispersive (weak-coupling, static-shift) readout used so far. Notably, Ref.~\cite{koolstra2026strong}
+itself anticipates this direction in its own outlook, noting that its strong-coupling result "opens
+access to the investigation of a range of new light–matter phenomena with a single fundamental
+particle" and to "exotic ultrastrong coupling regimes of circuit quantum optics" — a broader framing
+into which the three specific protocols pursued here (cooling, squeezing, entanglement) fit as
+concrete, well-established special cases.
 
 There is also a direct, and useful, methodological connection already present in this project: the
 existing entanglement work on this platform~\cite{beysengulov2024} generates motional entanglement
@@ -89,10 +112,13 @@ motional mode (annihilation operator $b$, frequency $\omega_e$) as
 \begin{equation}
 H_0 = \hbar\omega_r a^\dagger a + \hbar \omega_e b^\dagger b + \hbar g\,(a + a^\dagger)(b + b^\dagger),
 \end{equation}
-with $g$ the electron--photon coupling of Refs.~\cite{koolstra2025impedance,castoria2025}
+with $g$ the electron--photon coupling of Refs.~\cite{koolstra2025impedance,castoria2025,koolstra2026strong}
 (there, $g = \tfrac{1}{2} e E_x \omega_0 \sqrt{Z_{\rm res}/(m_e \omega_e)}$; measured/simulated values
-$Z_{\rm res}\approx 2.5\,\mathrm{k}\Omega$, $g/2\pi = 9.8$--$43\,\mathrm{MHz}$ depending on device and
-regime — see \texttt{resonator-coupling} and \texttt{charge-readout}). Driving the resonator at a
+range from $g/2\pi = 9.8\,\mathrm{MHz}$ (dispersive charge-readout device~\cite{castoria2025}) up to
+the now-\emph{measured} strong-coupling value $g/2\pi = 118\pm3\,\mathrm{MHz}$
+($Z_{\rm res} = 3.8\,\mathrm{k}\Omega$, a $\sim20\times$ boost over earlier
+realizations)~\cite{koolstra2026strong} — see \texttt{resonator-coupling} and \texttt{charge-readout}).
+Driving the resonator at a
 detuning $\Delta = \omega_d - \omega_r$ and linearizing around the resulting large coherent
 resonator amplitude gives, after the standard rotating-wave approximation valid when
 $g \ll \omega_e, \kappa \ll \omega_e$ (resolved-sideband regime):
@@ -110,29 +136,45 @@ shared or coupled-resonator mode, of dissipative entanglement (Sec.~\ref{sec:ent
 
 Red-sideband driving realizes a beam-splitter interaction that swaps excitations from the electron
 motional mode into the (lossy) resonator mode, cooling the electron's in-plane motion toward its
-ground state at an effective rate set by the cooperativity $C = 4g^2/(\kappa\Gamma)$, where $\kappa$
-is the resonator linewidth (demonstrated $\kappa_i/2\pi = 11.7\,\mathrm{kHz}$
-internal~\cite{koolstra2025impedance}, though the loaded/total linewidth relevant for cooling rate
-will generally be larger) and $\Gamma$ is the electron motional linewidth (dominated by helium-vapor
-scattering above $\sim$1~K in the device of Ref.~\cite{castoria2025}, or by ripplon coupling at
-millikelvin temperatures per \texttt{two-qubit-gates}). \textbf{Open question:} does either
-demonstrated eHe device sit in the resolved-sideband regime $\kappa \ll \omega_e$ required for
-efficient ground-state cooling, or does achieving it require the further impedance/coupling
-increases already projected (but not yet realized) in Ref.~\cite{koolstra2025impedance}
-($g/2\pi \approx 80\,\mathrm{MHz}$ projection)?
+ground state at an effective rate set by the cooperativity $C = 4g^2/(\kappa\Gamma)$. This budget can
+now be evaluated directly against measured numbers rather than design projections:
+Ref.~\cite{koolstra2026strong} reports $g/2\pi = 118\pm3\,\mathrm{MHz}$, a (loaded) resonator
+linewidth $\kappa/2\pi = 23\,\mathrm{MHz}$, and an electron decoherence rate as low as
+$\Gamma_2/2\pi = 61\,\mathrm{MHz}$, giving a single-photon cooperativity
+$\mathcal{C} = 4g^2/(\kappa\Gamma_2) \approx 32 \gg 1$. The electron motional frequency is tunable
+over $\omega_e/2\pi \approx 5.5$--$8.7\,\mathrm{GHz}$, so $\kappa/\omega_e \sim 3\times10^{-3} \ll 1$:
+the device is deep in the resolved-sideband regime. \textbf{This resolves the open question from the
+previous version of this note}: the demonstrated device \emph{does} sit in the resolved-sideband,
+high-cooperativity regime nominally required for efficient sideband cooling, without needing the
+further impedance increases once projected in Ref.~\cite{koolstra2025impedance}
+($g/2\pi\approx80\,\mathrm{MHz}$) — the realized coupling already exceeds that projection.
+\textbf{Remaining open question:} $\Gamma_2$ in Ref.~\cite{koolstra2026strong} is dominated by pure
+dephasing rather than energy relaxation ($\gamma_1 \ll \Gamma_2$, with $T_1 \approx 0.76\,\mu$s at
+large detuning), and $\Gamma_2$ itself grows with temperature as a $T^{0.5}$ power law from 7~mK to
+450~mK with no sign of saturating at the lowest measured temperature. Standard sideband-cooling
+formulas (final phonon occupation $n_f \approx (\kappa/4\omega_e)^2$ in the ideal resolved-sideband
+limit, modified by $\Gamma_2/g$) assume a well-characterized, temperature-independent bath; whether
+the observed dephasing-dominated, apparently non-saturating noise source (tentatively attributed to
+ripplons or stray-charge fluctuations~\cite{koolstra2026strong}) limits the achievable cooling floor
+in a way the standard formula does not capture is the calculation this project still needs to do.
 
 \subsection{Motional squeezing (analogue of Ref.~\cite{pirkkalainen2015squeezing})}
 \label{sec:squeezing}
 
 Two-tone driving (simultaneous red and blue sidebands with unequal amplitude) squeezes one
 quadrature of the electron's motional state below the zero-point level, at the cost of anti-squeezing
-the conjugate quadrature, exactly as in Ref.~\cite{pirkkalainen2015squeezing}. \textbf{Open
-question:} what squeezing level is achievable given the demonstrated $g$, $\kappa$, and thermal
-occupation $\bar n$ at the relevant operating temperature (1.1~K for the demonstrated charge-readout
-device~\cite{castoria2025}, vs.\ the $\sim$10~mK regime assumed for the high-impedance resonator
-work~\cite{koolstra2025impedance})? Thermal occupation at 1.1~K for a $\sim$few-GHz mode is far from
-the ground state without active cooling first (Sec.~\ref{sec:cooling}) — squeezing likely requires
-the mK regime, or cooling as a first step, unlike the demonstrated >1~K charge-sensing results.
+the conjugate quadrature, exactly as in Ref.~\cite{pirkkalainen2015squeezing}. The operating-point
+question flagged in the previous version of this note is now partly settled:
+Ref.~\cite{koolstra2026strong} operates and characterizes the strongly coupled device across
+$7\,\mathrm{mK}$--$450\,\mathrm{mK}$ in a dilution refrigerator, not the $1.1\,\mathrm{K}$ regime of
+the dispersive charge-readout device~\cite{castoria2025} — for a $\sim$7--9~GHz mode, $7\,\mathrm{mK}$
+gives a thermal occupation $\bar n = 1/(e^{\hbar\omega_e/k_BT}-1) \ll 1$, i.e.\ the device is
+operated close to its motional ground state \emph{before} any active sideband cooling is applied,
+unlike the >1~K charge-sensing regime. \textbf{Open question:} the achievable squeezing level in dB
+is still unevaluated — it requires combining the now-known $g$, $\kappa$, and $\Gamma_2(T)$ with the
+standard two-tone-squeezing formula (see \texttt{aspelmeyer2014cavity}) and checking whether the
+observed non-saturating, dephasing-dominated $\Gamma_2$ (Sec.~\ref{sec:cooling}) imposes a squeezing
+ceiling below the level $\mathcal{C}\approx32$ would naively suggest.
 
 \subsection{Motional entanglement (analogue of Ref.~\cite{ockeloenkorppi2018stabilized})}
 \label{sec:entanglement}
@@ -149,31 +191,52 @@ be close enough to interact directly and entangles motional \emph{and}, via the 
 construction, spin degrees of freedom; the dissipative mechanism proposed here entangles motional
 degrees of freedom of two electrons that need not be Coulomb-coupled at all, only both coupled to a
 shared cavity mode — potentially a route to entangling electrons that are too far apart to interact
-directly via Coulomb repulsion. \textbf{Open question:} is this the more promising route for
-distant-electron entanglement (e.g.\ across a sensor network, cf.\ \texttt{quantum-sensing}'s
-proposed network extension), and how does its achievable fidelity/rate compare to the direct-Coulomb
-route at the separations where both are in principle available?
+directly via Coulomb repulsion. Unlike the cooling and squeezing protocols above, this channel is
+\emph{not} directly addressed by Ref.~\cite{koolstra2026strong}, which demonstrates strong coupling
+for a single electron in a single dot; the measured $g$, $\kappa$, and $\Gamma_2$ are nonetheless the
+right per-electron numbers to plug into a two-electron, shared- (or coupled-) resonator extension of
+that device once designed. \textbf{Open question, now sharpened:} given a per-electron cooperativity
+$\mathcal{C}\approx32$ is achievable (Sec.~\ref{sec:cooling}), what steady-state logarithmic
+negativity does the driven-dissipative two-oscillator theory of
+Ref.~\cite{ockeloenkorppi2018stabilized} predict for two such electrons sharing a resonator mode, and
+is this the more promising route for distant-electron entanglement (e.g.\ across a sensor network,
+cf.\ \texttt{quantum-sensing}'s proposed network extension) compared to the direct-Coulomb route at
+the separations where both are in principle available? This remains the least-constrained of the
+three protocols and the natural next target now that the single-electron strong-coupling prerequisite
+is no longer in question.
 
 \section{Results}
 
-Not yet available. This section will report, for each of the three protocols above, the achievable
-figure of merit (final phonon occupation for cooling; squeezing in dB for squeezing; logarithmic
-negativity or an entanglement witness for the two-electron case) computed from the demonstrated
-device parameters in Refs.~\cite{koolstra2025impedance,castoria2025}, or explicitly flagged if those
-parameters are insufficient and a specific improvement (e.g.\ the narrower-wire impedance projection)
-is required first.
+Not yet available. Ref.~\cite{koolstra2026strong} establishes the cooperativity/sideband-resolution
+budget this section needs as an \emph{input} ($g/2\pi=118\pm3\,\mathrm{MHz}$,
+$\kappa/2\pi=23\,\mathrm{MHz}$, $\Gamma_2/2\pi=61$--$75\,\mathrm{MHz}$,
+$\mathcal{C}\approx32$, resolved sideband $\kappa/\omega_e\sim3\times10^{-3}$), but this section will
+still report, for each of the three protocols, the achievable figure of merit computed from those
+numbers: final phonon occupation for cooling (Sec.~\ref{sec:cooling}), squeezing in dB for squeezing
+(Sec.~\ref{sec:squeezing}), and logarithmic negativity or an entanglement witness for the two-electron
+case (Sec.~\ref{sec:entanglement}, which additionally requires extending the single-electron result to
+a two-electron, shared-resonator design that does not yet exist).
 
 \section{Discussion and outlook}
 
-The most immediate task is a cooperativity/sideband-resolution budget using the actual measured
-parameters of Refs.~\cite{koolstra2025impedance,castoria2025}, to determine which (if any) of the
-three protocols is feasible with demonstrated hardware versus requiring the projected
-(not-yet-realized) narrower-wire impedance improvement. If the dissipative entanglement route
-(Sec.~\ref{sec:entanglement}) proves competitive with the existing Coulomb-coupling route, it is
-worth quantifying head-to-head using the same fidelity/entropy metrics as
-\texttt{coulomb-entanglement}, reusing the numerical toolkit in \texttt{ci-dvr-hartree-numerics}
-extended to include cavity dissipation (a Lindblad treatment, currently flagged as future work for
-this project's decoherence modeling more broadly).
+With the strong-coupling and resolved-sideband prerequisites now experimentally established by
+Ref.~\cite{koolstra2026strong}, the immediate task for this project shifts from "is a cooperativity
+budget favorable at all" to computing the three protocols' actual figures of merit from the measured
+$g$, $\kappa$, and (temperature-dependent, dephasing-dominated) $\Gamma_2(T)$, and checking whether
+the observed non-saturating low-temperature dephasing (Sec.~\ref{sec:cooling}) caps the achievable
+cooling/squeezing performance below what $\mathcal{C}\approx32$ alone would suggest. The entanglement
+protocol (Sec.~\ref{sec:entanglement}) is the one channel Ref.~\cite{koolstra2026strong} does not
+directly address — it demonstrates single-electron, single-dot strong coupling only — so a two-electron
+shared- or coupled-resonator extension of that device is the concrete design question to raise with
+the experimental collaborators next. If the dissipative entanglement route proves competitive with the
+existing Coulomb-coupling route, it is worth quantifying head-to-head using the same fidelity/entropy
+metrics as \texttt{coulomb-entanglement}, reusing the numerical toolkit in
+\texttt{ci-dvr-hartree-numerics} extended to include cavity dissipation (a Lindblad treatment, currently
+flagged as future work for this project's decoherence modeling more broadly). Separately,
+Ref.~\cite{koolstra2026strong}'s own outlook toward spin readout via spin--orbit hybridization (a
+micromagnet-induced field gradient, following semiconductor-quantum-dot precedent) is a complementary,
+not competing, use of the same strong-coupling hardware and is better tracked under
+\texttt{quantum-sensing}/\texttt{charge-readout} than folded into this project.
 
 \begin{acknowledgments}
 Placeholder.
