@@ -104,4 +104,8 @@ sensitivity baselines to compare against:
   original static-gradient proposal.
 - Literature check ongoing: search again before committing to a specific channel, since this is a
   fast-moving field (note e.g. beadle2025nmr and jiang2024searches are both from 2024/2025 — check for
-  2026 follow-ups before finalizing).
+  2026 follow-ups before finalizing). **Update (2026-07-10):** DM Radio has since proposed a
+  GUT-scale-motivated follow-on design, DMRadio-Core (`ankel2026dmradiocore`, arXiv:2604.16602,
+  30--200 MHz band) beyond the 2017 pathfinder design already cited — added to `main.tex`/
+  `references.bib`. No updates found for CASPEr, ABRACADABRA, or GNOME beyond what's already cited;
+  re-check again before finalizing a channel.

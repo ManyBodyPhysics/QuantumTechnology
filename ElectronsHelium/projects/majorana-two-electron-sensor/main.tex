@@ -97,7 +97,23 @@ once $\lambda(t)$ is specified.
   flips the ground-state fermion parity, which (depending on the specific hybrid architecture) can
   modulate a local charge or field asymmetric between the two trap sites. This would appear as a
   telegraph-noise-like signal rather than a coherent Rabi oscillation, requiring a different Fisher
-  information treatment (parameter = switching rate, not a static/slowly-varying field).
+  information treatment (parameter = switching rate, not a static/slowly-varying field). This picture
+  is no longer purely hypothetical: a minimal (two-site) Kitaev-chain realization of an MZM pair has
+  now had its joint parity read out in real time via quantum capacitance, directly observing
+  random-telegraph parity switching with lifetimes exceeding 1~ms~\cite{vanloo2026kitaev}; that
+  measurement is an intrinsic, local (dispersive) probe of the topological device itself, not an
+  external differential sensor, so it grounds the \emph{statistics} of the target signal (telegraph
+  process, not a static field) without yet demonstrating anything like the remote, common-mode-
+  rejecting readout proposed here. Independently, measured quasiparticle-poisoning statistics in
+  conventional superconducting qubits (correlated multi-qubit bursts, a power-law-decaying event
+  rate from phonon-only sources) offer a separate, concrete noise-process model to benchmark
+  a telegraph-process Fisher-information treatment against~\cite{yelton2025correlated}. The closest
+  existing precedent to this project's overall detection philosophy — using a qubit's parity flip as
+  a rare-event particle detector — is the quantum-parity-detector (QPD) concept, which uses a single
+  superconducting qubit's own quasiparticle parity (not an entangled pair, and not an MZM) for
+  meV-threshold dark-matter/rare-event searches~\cite{ramanathan2026parity}; the entangled,
+  common-mode-rejecting, MZM-specific angle pursued here appears not yet covered by that or any other
+  proposal found in this project's literature search.
   \item \textbf{Stray field from Majorana-induced edge/Andreev currents.} If the topological wire
   supports a weak stray magnetic field at its end (from the associated Andreev bound state charge
   distribution or edge current), this maps most directly onto the existing $\delta B$ channel and
@@ -123,7 +139,13 @@ currently achievable electron--nanowire separations) is the first concrete task 
   \item Is the relevant noise process (e.g.\ quasiparticle poisoning) better modeled as a static
   parameter to estimate (Fisher information / Cram\'er--Rao, as in the existing framework) or as a
   stochastic process requiring a different estimation-theoretic treatment (e.g.\ change-point
-  detection, quantum non-demolition parity readout)?
+  detection, quantum non-demolition parity readout)? The direct, real-time observation of random-
+  telegraph parity switching in a minimal Kitaev chain~\cite{vanloo2026kitaev} answers this for the
+  \emph{intrinsic} parity-readout case (yes, a stochastic telegraph process, not a static field) --
+  but this project's proposed external, differential readout of a signal \emph{sourced by} an MZM's
+  parity flip, rather than a direct probe of the MZM itself, may still see an effectively different
+  (e.g.\ filtered, distance-attenuated) process, so the estimation-theoretic treatment cannot simply
+  be copied over without re-deriving it for the external-sensor geometry.
   \item Does the factor-of-2 QFI advantage carry over quantitatively, or does the new coupling
   operator's matrix element $M_{ge}$ (or its charge-channel analogue) reduce the achievable gain?
   \item What does the required electron--nanowire integration look like physically (shared substrate?

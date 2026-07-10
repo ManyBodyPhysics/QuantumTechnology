@@ -26,7 +26,19 @@ sensing?
   the existing static-parameter QFI/CRB framework even apply, or is this really a parity-readout /
   change-point-detection problem in disguise?
 - Is there existing literature on using entangled sensors specifically for topological-qubit parity
-  readout that we should be citing/building on (search before writing further)?
+  readout that we should be citing/building on (search before writing further)? **Literature check
+  done (2026-07-10):** closest precedents found are (i) `vanloo2026kitaev` — real-time, single-shot
+  parity readout of a minimal (two-site) Kitaev-chain MZM pair via quantum capacitance, directly
+  observing random-telegraph parity switching with lifetimes >1 ms (grounds the *statistics* of the
+  target signal, but is an intrinsic/local dispersive probe of the topological device itself, not an
+  external differential sensor); (ii) `ramanathan2026parity` — a single superconducting qubit's own
+  quasiparticle parity used as a rare-event/dark-matter detector (same "parity flip as particle
+  signal" philosophy, but no entanglement and no MZM); (iii) `yelton2025correlated` — measured
+  quasiparticle-poisoning statistics (correlated bursts, power-law rate) in conventional
+  superconducting qubits, useful as a concrete noise-process model. **No existing proposal found**
+  for an external, entangled, common-mode-rejecting sensor pair reading out an MZM signal — this
+  project's core idea appears to still be novel, but should be re-checked periodically (fast-moving
+  area; Kitaev-chain parity readout was itself only demonstrated in 2025/2026).
 
 ## Equations / derivations to work out
 - Generalize `H_eff = E_g|g><g| + E_e|e><e| + λ(t)(|g><e|+|e><g|)` for each candidate channel's
@@ -45,5 +57,6 @@ sensing?
   (`resonator-coupling`/`charge-readout` device family) on what's realistic.
 - Might turn out that none of the three candidate channels give a detectable signal at achievable
   distances — worth stating that as a possible (negative) outcome, not just assuming success.
-- Literature check needed: has anyone proposed entangled-spin-pair sensors for MZM/parity readout
-  before? If so, position this work relative to it rather than presenting it as unprecedented.
+- Literature check done, see above — no entangled-pair MZM sensor precedent found, but keep
+  re-checking; this exact intersection (entangled differential sensing + topological parity) is a
+  natural idea and could appear in preprint form at any time.

@@ -27,7 +27,23 @@ higher-level "agentic" layer on top, actually useful — or just more complicate
   possible.
 - Define "agentic" precisely before using the word in the manuscript — right now it's a placeholder
   for "something more than parameter optimization" and needs to become a specific, testable claim.
-- Model-aware RL, add material about it
+- Model-aware RL — now written up in `main.tex` (intro + new Sec.~II.B "Model-aware RL for gate
+  design"). Key references: `khalid2023samplemodelbased` (auto-diff-ODE model-based RL with a
+  learnable Hamiltonian ansatz; order-of-magnitude sample-efficiency gain over model-free RL for
+  noisy time-dependent gate control — closest precedent to what's proposed here), `belliardo2024model`
+  (model-aware RL for Bayesian experimental design in quantum metrology — same philosophy, applied to
+  the sensing side of this project's sibling use case), `moerland2023modelbased` (general MBRL survey,
+  non-quantum, for terminology), `li2025robust` (RL-from-demonstration — related but distinct:
+  seeds the policy rather than differentiating through a model; still the fallback if the
+  differentiable-propagator route stalls).
+  - Two concrete variants written up: (i) model-based rollouts (cheap synthetic episodes from the
+    known propagator, low implementation risk) and (ii) differentiating directly through a
+    reimplemented, autodiff Crank–Nicolson step (higher payoff, higher risk — unrolled-ODE gradient
+    stability is unresolved, see `main.tex` open questions).
+  - Unlike `khalid2023samplemodelbased`, we don't need a Hamiltonian-learning step: the eHe CI
+    Hamiltonian is already known essentially exactly (`beysengulov2024`), so model-awareness here
+    reduces to "differentiate through (or roll out with) a model we already have," not "learn an
+    unknown model from data."
 ## Equations / derivations to work out
 - Action-space parametrization for the gate-RL environment (direct voltage increments vs. a
   truncated smooth-basis expansion of λ(t)).
@@ -39,6 +55,10 @@ higher-level "agentic" layer on top, actually useful — or just more complicate
   discovered pulse shapes in a notebook, e.g. `notebooks/06_rl_optimization.ipynb` (already listed
   in `notebooks/README.md`) extended with a gate-design section, or a new
   `notebooks/08_rl_gate_design.ipynb`.
+- If the differentiable-propagator variant of model-aware RL (`main.tex` Sec.~II.B) is pursued, the
+  existing Crank–Nicolson step needs an autodiff-capable reimplementation (e.g. JAX) alongside the
+  current NumPy/Fortran version, kept as a separate module so the two can be cross-checked for
+  numerical parity before the autodiff version is trusted for training.
 
 ## Risks / open challenges
 - RL training cost vs. grid search: if grid search is already cheap and good, RL needs a clear

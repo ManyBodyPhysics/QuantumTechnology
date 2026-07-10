@@ -19,3 +19,8 @@ precedent; the `main.tex` class options are set up for either.
 
 **First concrete task:** narrow the three candidate signal channels in `main.tex` Sec.~II.B down to
 one, with an order-of-magnitude signal-size estimate, before attempting any QFI calculation.
+
+**Literature check (2026-07-10):** no existing proposal found for an external, entangled,
+common-mode-rejecting sensor pair reading out an MZM signal — see `notes.md` for the closest
+precedents identified (single-shot Kitaev-chain parity readout, qubit-based quantum parity detectors,
+measured quasiparticle-poisoning statistics), now cited in `main.tex` Sec.~II.B.

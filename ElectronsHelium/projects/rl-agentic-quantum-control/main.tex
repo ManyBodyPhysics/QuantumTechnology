@@ -39,7 +39,35 @@ use cases, and the open questions that need to be resolved before results can be
 
 \section{Introduction}
 
-Add material in intro about model-aware modeling.
+Most reinforcement-learning approaches to quantum control, including the PPO agent already deployed
+on this platform~\cite{schulman2017proximal,perruzza2026}, are \emph{model-free}: the agent treats
+the environment (here, Crank--Nicolson propagation under the CI Hamiltonian) as a black box, learning
+a policy purely from the scalar reward returned by each episode, with no access to the fact that the
+underlying dynamics are, in this case, already fully known. \emph{Model-aware} (or model-based) RL
+instead folds an explicit model of the environment's dynamics directly into the learning algorithm --
+either by differentiating through a known or learned generative model to obtain a direct gradient of
+the reward with respect to the control parameters, or by using the model to generate cheap synthetic
+rollouts that supplement real environment interactions -- and has been reported to reduce the number
+of environment interactions needed by an order of magnitude relative to model-free RL on closely
+analogous noisy, time-dependent gate-control problems, using an auto-differentiable ODE parametrized
+by a learnable Hamiltonian ansatz~\cite{khalid2023samplemodelbased}. The same model-aware philosophy
+underlies recent quantum-metrology work that folds a known measurement/parameter-estimation model
+directly into the RL loop for Bayesian experimental design~\cite{belliardo2024model}, and is reviewed
+more generally, outside the quantum setting, in Ref.~\cite{moerland2023modelbased}. Two features of
+the present platform make model-aware RL an unusually good fit for the gate-design problem
+(Sec.~\ref{sec:model-aware-rl}): first, unlike Ref.~\cite{khalid2023samplemodelbased}, which must
+learn an initially uncharacterized Hamiltonian ansatz from system interactions, the eHe CI Hamiltonian
+is already known essentially exactly from the soft-Coulomb/electrode-potential model of
+Ref.~\cite{beysengulov2024}, so no system-identification step is needed; second, the Crank--Nicolson
+propagator already used for the Ref.~\cite{leinonen2025} grid search is a deterministic numerical
+model that is differentiable in principle, making it a natural candidate to differentiate through
+directly rather than to treat as an opaque simulator -- which is exactly the sample-efficiency
+bottleneck flagged as an open risk below (gate-fidelity evaluation is presumably expensive per
+episode). A related but distinct strategy -- reinforcement learning \emph{from demonstration},
+seeding the policy with a known-good solution (here, the erf-ramp family) rather than learning an
+explicit environment model -- has also recently been shown to improve robustness and sample
+efficiency for quantum gate control~\cite{li2025robust}, and remains the fallback option mentioned
+below if a full model-aware architecture proves difficult to implement.
 
 Model-free reinforcement learning has shown broad success in quantum control tasks — from generic
 state-preparation and gate-design problems~\cite{bukov2018reinforcement,niu2019universal} to
@@ -69,6 +97,7 @@ sequences its own investigation rather than only optimizing a fixed reward on a 
 \section{Model}
 
 \subsection{RL environment for gate design}
+\label{sec:rl-env-gate-design}
 
 Reusing the two-qubit gate model of Ref.~\cite{leinonen2025}: state $s_t$ = (present voltage vector
 $V(t)$ or its parametrization $\lambda(t)$, elapsed pulse time, present gate-state overlaps
@@ -81,6 +110,42 @@ approach. Candidate architectures: PPO (consistent with the existing sensing-RL
 infrastructure~\cite{schulman2017proximal}), or a demonstration-seeded approach that starts from the
 known erf-ramp solution and lets RL refine it (in the spirit of reinforcement-learning-from-demonstration
 approaches to quantum control) rather than learning a pulse shape from scratch.
+
+\subsection{Model-aware RL for gate design}
+\label{sec:model-aware-rl}
+
+Rather than (or in addition to) the black-box PPO agent of Sec.~\ref{sec:rl-env-gate-design}
+treating the Crank--Nicolson propagation of Ref.~\cite{leinonen2025} purely as a reward oracle, a
+model-aware architecture would exploit the fact that the propagator itself is a known, deterministic
+numerical model of the environment. Two concrete variants, in increasing order of implementation
+effort:
+\begin{itemize}
+  \item \textbf{Model-based rollouts.} Use the known propagator to generate additional, cheap
+  synthetic training episodes (in the spirit of classical Dyna-style model-based
+  RL~\cite{moerland2023modelbased}) alongside real Crank--Nicolson evaluations, reducing the number
+  of full-fidelity propagations needed per training epoch. Lowest implementation risk, since it wraps
+  the existing propagator rather than reimplementing it.
+  \item \textbf{Differentiate through the propagator.} Following the auto-differentiable-ODE approach
+  of Ref.~\cite{khalid2023samplemodelbased} (there applied to NV-center and transmon gates with a
+  partially unknown, learned Hamiltonian ansatz), reimplement the Crank--Nicolson step in an autodiff
+  framework and backpropagate the gate-fidelity/speed reward directly through the full pulse
+  trajectory to obtain an exact gradient with respect to the pulse parameters $\lambda(t)$, replacing
+  (or initializing) the stochastic PPO policy gradient with this direct gradient. Because the eHe CI
+  Hamiltonian is already known essentially exactly (Sec.~II of Ref.~\cite{beysengulov2024}), no
+  Hamiltonian-learning step analogous to Ref.~\cite{khalid2023samplemodelbased}'s own is needed --
+  only a differentiable re-implementation of the existing propagator.
+\end{itemize}
+Either variant directly targets the sample-efficiency concern raised for this project: gate-fidelity
+evaluation via Crank--Nicolson propagation is presumably far more expensive per episode than the
+Fisher-information reward already used for sensing~\cite{perruzza2026}, and
+Ref.~\cite{khalid2023samplemodelbased} reports an order-of-magnitude reduction in the number of
+environment interactions from an analogous model-aware treatment of noisy, time-dependent gate
+control. \textbf{Open question:} backpropagating through many Crank--Nicolson steps is a long,
+unrolled computation graph, and unrolled-ODE gradients are known to be prone to vanishing/exploding
+behavior; whether this requires gradient checkpointing, a coarser effective pulse discretization, or
+truncated backpropagation-through-time is unresolved and should be checked on a small toy version of
+the Hamiltonian (see the sanity check in the open questions below) before committing to a full
+implementation.
 
 \subsection{A joint gate-and-sensing reward (exploratory)}
 
@@ -119,6 +184,12 @@ needs scoping before any implementation is attempted — see open questions belo
   hyperparameter search? This needs a sharper definition before it's a research claim rather than a
   buzzword — see Ref.~\cite{bukov2026reinforcement} for how the broader RL-for-quantum-technology
   literature currently scopes this kind of question.
+  \item Does a model-aware/differentiable-propagator approach (Sec.~\ref{sec:model-aware-rl}) actually
+  deliver, for this specific Hamiltonian, a sample-efficiency gain comparable to the order-of-magnitude
+  reported in Ref.~\cite{khalid2023samplemodelbased}, or does the engineering cost of maintaining a
+  differentiable re-implementation of the Crank--Nicolson propagator outweigh the savings in the
+  number of episodes needed? This should be checked before choosing between the model-free (PPO),
+  model-based-rollout, and full differentiable-propagator variants for the production implementation.
 \end{itemize}
 
 \section{Results}
