@@ -27,7 +27,7 @@ higher-level "agentic" layer on top, actually useful — or just more complicate
   possible.
 - Define "agentic" precisely before using the word in the manuscript — right now it's a placeholder
   for "something more than parameter optimization" and needs to become a specific, testable claim.
-
+- Model-aware RL, add material about it
 ## Equations / derivations to work out
 - Action-space parametrization for the gate-RL environment (direct voltage increments vs. a
   truncated smooth-basis expansion of λ(t)).
